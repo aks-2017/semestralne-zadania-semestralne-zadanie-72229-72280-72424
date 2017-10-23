@@ -1,6 +1,6 @@
-#README
-##AKS 2017/2018 Mastiľak - Pánis - Vaculčiak
-###Prehľad komponentov
+# README
+## AKS 2017/2018 Mastiľak - Pánis - Vaculčiak
+### Prehľad komponentov
 '''
 /docs
 '''

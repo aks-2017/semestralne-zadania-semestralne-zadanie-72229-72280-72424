@@ -1,1 +1,1 @@
-#Navrh riesenia
+# Navrh riesenia
