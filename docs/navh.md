@@ -65,9 +65,9 @@ Ako môžeme vidieť na grafoch zobrazujúcich výsledky meraní, autori prišli
 
 #### Návrh projektu
 
-##### Mininet
+#### Mininet
 
-##### Reálne prostredie
+#### Reálne prostredie
 Na testovanie SDN siete v reálnom prostredí používame zariadenia Soekris net6501, na ktorých je OS Debian. Architektúra je podobná s Mininet architektúrou. Rozdiel je v použití fyzických SDN prepínačov namiesto Mininet emulátora. V prepínači je na OS Debian spustený proces Open vSwitch, ktorý podporuje OpenFlow. Daný prepínač komunikuje s controllerom, ktorý je implementovaný pomocou RYU a nad ním je aplikácia, ktorá implementuje DTD algoritmus a pomocou RYU API dáva inštrukcie konkrétnym prepínačom, aby sa vytvorila cesta pre konkrétne pakety záložnou cestou.
 
 **(OBRÁZOK architektúry)!!!**
