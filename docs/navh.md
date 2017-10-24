@@ -82,4 +82,4 @@ Navrhovaná topológia vyzerá nasledovne:
 #### Zhodnotenie a porovnanie emulovaných a reálnych výsledkov
 
 #### Literatúra
-https://www.rfc-editor.org/rfc/pdfrfc/rfc7426.txt.pdf
+https://www.rfc-editor.org/rfc/pdfrfc/rfc7426.txt.pdf - kapitola SDN
