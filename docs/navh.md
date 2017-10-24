@@ -114,3 +114,4 @@ Navrhovaná topológia vyzerá nasledovne:
 
 #### Literatúra
 https://www.rfc-editor.org/rfc/pdfrfc/rfc7426.txt.pdf - kapitola SDN
+http://www.enterprisenetworkingplanet.com/netos/article.php/3657236/Measure-Network-Performance-with-iperf.htm - kapitola Algoritmus DTD
