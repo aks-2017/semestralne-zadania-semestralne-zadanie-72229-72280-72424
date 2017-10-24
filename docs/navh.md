@@ -78,24 +78,27 @@ Testované boli 3 scenáre:
 ###### Základný test
 Úlohou základného testu je zistiť počiatočné podmienky a vlastnosti (jitter) danej topológie. Spočíva v UDP komunikácií uzlov H1 a H3. Uzol H1 posiela 600MB dát rýchlosťou 50Mb/s a nakoľko tam nie je žiadna iná premávka, nedochádza k strate paketov a jitter je sposobený len oneskorením na linkách.
 
-Porovnanie hodnôt jitteru pre obe testované prostredia (scenár 1) 
-![alt text][test_1]
+Porovnanie hodnôt jitteru pre obe testované prostredia (scenár 1):
+ 
+![Test 1 Graph][test_1]
 
 [test_1]: https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Andrej/docs/pictures/test_1.PNG
 
 ###### Výkonnostný test bez DTD
 Hlavným cieľom tohto scenára bolo určiť správanie sa siete počas zahltenia. Uzly H1 a H3 komunikujú rovnako ako v prípade 1. testu. Okrem nich však do siete pribudla komunikácia ulzov H2 a H4, ktoré si posielajú veľké množstvo UDP paketov rýchlosťou 95Mb/s. Táto skutočnosť zapríčiní zahltenie linky medzi prepínačmi a teda zvýši sa stratovosť paketov a zvýši jitter, čo je predpokladaný jav. Okrem toho sa začnú strácať pakety, pričom táto stratovosť dosiahla v priemere 50% pre reálne prostredie a 34% v Mininete.
 
-Porovnanie hodnôt jitteru pre obe testované prostredia (scenár 2) 
-![alt text][test_2]
+Porovnanie hodnôt jitteru pre obe testované prostredia (scenár 2):
+ 
+![Test 2 Graph][test_2]
 
 [test_2]: https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Andrej/docs/pictures/test_2.PNG
 
 ###### Výkonnostný test s použitím DTD
 Cieľom tohto testu bolo overiť hypotézu, či aplikácia za použitia DTD dokáže znížiť čas potrebný na doručenie paketov (jitter) a zvýši celkovú doručiteľnsoť paketov (packet loss). Scenár je v podstate identický s predchádzajúcim, no pribudla v ňom situácia, v ktorej, keď dojde k zahlteniu linky na viac, ako 90%, presmeruje sa premávka z H1 do H3 na záložnú linku, čím sa má dosiahnuť spomínaný cieľ.
 
-Porovnanie hodnôt jitteru pre obe testované prostredia (scenár 3) 
-![alt text][test_3]
+Porovnanie hodnôt jitteru pre obe testované prostredia (scenár 3):
+ 
+![Test 3 Graph][test_3]
 
 [test_3]: https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Andrej/docs/pictures/test_3.PNG
 
