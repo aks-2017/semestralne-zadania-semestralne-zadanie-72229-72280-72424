@@ -26,6 +26,13 @@ slučkám.
 servery s OS Ubuntu. Výber daného kontroléra bol ovplyvnení širokou podporou
 Java na rôznych zariadeniach. OpenDaylight bol použitý aj pre reálnu
 implementáciu, ako aj pre prostredie Mininet.
+Pre realizáciu topológie boli vybrané prepínače Cisco Catalyst 3650, ktoré
+bežali na skorej trial verzií IOS-XE s podporou pre OpenFlow. Mala byť
+podporovaná verzia OpenFlow 1.3, ale autorom   nefungovala komunikácia
+prepínačov s kontrolórom. Preto sa rozhodli pre vyskúšanie verzie 1.0, kde
+komunikácia už bola funkčná.  Všetky porty na prepínačoch boli 100 Mbps. Koncové
+zariadenia bežali na OS Lubuntu a na každom z nich bol nainštalovaný nástroj na
+meranie Iperf. 
 ##### Algoritmus DTD
 
 ##### Testovanie a výsledky
