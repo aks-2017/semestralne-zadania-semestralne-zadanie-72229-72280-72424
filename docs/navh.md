@@ -88,6 +88,13 @@ Ako už bolo spomenuté, maximálna hodnota využitia linky, ktorá sa považuje
 Ako môžeme vidieť na grafoch zobrazujúcich výsledky meraní, autori prišli k záveru, že ich hypotéza o dôveryhodnosti výsledkov, ktoré poskytuje Mininet oproti reálnemu prostrediu a faktu, že nedochádzalo k stratám paketov pri aplikovaní DTD, bola správna. Avšak, pri testovaní 3. scenára sa objavila veľmi malá hodnota jitteru v Mininet prostredí, čo sa ale dá odôvodniť faktom, že Mininet je integrovaný na jednom stroji. Okrem toho neaplikovali do Mininetu oneskorenie na linkách, čo koniec koncov tak isto ovplyvnilo výsledky meraní a rozdiel v priemerných hodnotách.
 
 #### Návrh projektu
+Náš projekt sa skladá z dvoch hlavných častí, ktoré overujú referenčný článok (otestovanie algoritmu DTD, porovnanie oneskorení, rýchlosti a jitter-u):
+1. v emulátore Mininet,
+2. a na reálnych zariadeniach Soekris net6501.
+
+Architektúra daného SDN prostredia sa skladá z nasledujúcich prvkov a je pre oba prípady totožná. RYU SDN kontrolér, ktorého úlohou je poskytovať medzivrstvu medzi prepínačmi (či už reálnymi, alebo emulovanými v Mininet-e ktoré podporujú OpenFlow) a externou aplikáciou. Okrem iného korektne riadiť tok dát v sieti, ktorý môže byť dynamicky upravený pomocou aplikácie. Táto aplikácia s RYU kontrolérom komunikuje pomocou REST API a následne cez tohto prostredníka sa dostávajú riadiace informácie do prepínačov. Tento opis je taktiež možno vidieť na nasledujúcom.
+
+(OBRÁZOK architektúry SND - app + ryu + Oflow)!!!
 
 ##### Mininet
 
