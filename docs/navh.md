@@ -112,7 +112,7 @@ Architektúra daného SDN prostredia sa skladá z nasledujúcich prvkov a je pre
 Obr. 6 - Návrh architektúry
 
 ##### Mininet
-
+V návrhu našej topológie sme sa rozhodli trochu upraviť pôvodnu topológiu tým, že niektoré časti sme sa rozhodli vynechať. Konfigurácia siete bude na základe kontroléra. Chceme minimalizovať akúkoľvek konfiguráciu na hardverových prepínačoch. Určenie primárnej a v prípade potreby sukundárnej cesty sa bude riešiť cez kontrolér podobne ako v pôvodnom riešení.
 
 
 <img align="center" alt="Mininet_topology" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology1.png" width="400">
@@ -131,7 +131,7 @@ Je teda pravepodobné, že nebude možné vykonať merania na fyzickej topológi
 Obr. 8 - Návrh topológie pre reálne prostredie
 
 #### Zhodnotenie a porovnanie emulovaných a reálnych výsledkov
-Výsledky práce v prvom rade dospeli k tomu, že navrhovaný algoritmus DTD je vhodné použiť na minimalizáciu jettru a stratovosti paketov. Ďalej je tento algoritmus vhdoný na riešenie zahltenia na primárnej linke. Takto je môžne dosiahnúť, aby premávka s vysokou prioritou nebola blokavana premávkou s nižšou prioritou na primárnej linke.
+Výsledky práce v prvom rade dospeli k tomu, že navrhovaný algoritmus DTD je vhodné použiť na minimalizáciu jittru a stratovosti paketov. Ďalej je tento algoritmus vhodný na riešenie zahltenia na primárnej linke. Takto je môžne dosiahnúť, aby premávka s vysokou prioritou nebola blokovaná premávkou s nižšou prioritou na primárnej linke.
 
 Druhý výsledok práce sa zaoberá porovnaním výsledkov meraní z prostredia Mininet a reálneho prostredia. Dosiahnuté hodnoty v obidvoch prostredí sú porovnateľné. Z čoho je možné predpokladať, že prostredie Mininet je dostatočné na to, aby sa priblížilo dosiahnutými výsledkami k reálnemu prostrediu.
 
