@@ -19,6 +19,25 @@ Problém ale je napr. v pomerne zložitom spôsobe zabezpečenia kompatibility, 
 Preto sa prišlo s myšlienkou oddelenia kontrolnej časti sieťových prvkov a vytvoriť jeden centrálny prvok (tzv. controller), ktorý zabezpečí kontrolu nad sieťou. Výhodou takéhoto prístupu je, o. i. centralizovaná konfigurácia siete, možnosť videnia celej topológie s pohľadu controllera, čím sa napríklad odstraňuje potreba smerovacích protokolov prítomných v každom zo sieťových zariadení a zbytočne dlhá konvergencia siete pri výpadku. Ako ďalšie pozítívum sa vníma aj oveľa zjedonušená možnosť aplikácie tzv. traffic engineering-u. 
 
 ##### Topológia
+Základnú časť topológie siete na Obrázku 1 tvoria tri SDN prepínače, ktoré sú
+navzájom prepojené kvôli redundantným cestám. Prepínače sú označené číslami od 1
+do 3. K prepínačom 1 a 3 sú pripojené dve koncové zariadenia. Daný návrh
+topológie ponúka pri komunikácií medzi koncovými zariadeniami na rôznych
+prepínačov viacero ciest, ktorými môže komunikácia prebiehať. Jedna cesta slúži
+ako primárna cesta a v prípade, že na tejto ceste vznikne zahltenie, tak sa
+premávka presmeruje cez záložnú cestu. Takto je možné udržať latenciu a jitter
+na minimum. V návrhu topológie sa počíta aj s ošetrením proti možnému vzniku slučiek.
+
+Ďalším prvkom topológii je kontrolér OpenDaylight, ktorý beží na virtuálnom
+serveri s OS Ubuntu. Výber daného kontroléra bol ovplyvnení širokou podporou Java na rôznych zariadeniach. OpenDaylight bol použitý aj pre reálnu implementáciu, ako aj pre prostredie Mininet.
+
+Pri realizáciu topológie boli vybrané prepínače Cisco Catalyst 3650, ktoré bežali na trial verzií IOS-XE s podporou pre OpenFlow. Autori počítali s podporou verzie OpenFlow 1.3, ale   komunikácia medzi prepínačmi a kontrolérom nefungovala. Preto sa rozhodli pre vyskúšanie verzie 1.0, kde komunikácia už bola funkčná.  Všetky porty na prepínačoch boli 100 Mbps. Koncové zariadenia bežali na OS Lubuntu a na každom z nich bol nainštalovaný nástroj na meranie výkonu siete iPerf.
+
+![topology][topology]
+
+[topology]: https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology.png
+
+Obr. 1 - Návrh topológie
 
 ##### Algoritmus DTD
 Algoritmus DTD (Dynamic Traffic Diversion) bol vytvorený pre testovacie účely, pomocou ktorého je možné dynamicky meniť tok premávky, za účelom zníženia straty paketov a jitter-u.
@@ -30,7 +49,7 @@ Strata paketov je zlyhanie odosielaných paketov, ktoré prichádzajú do cieľa
 ![DTD_algo][DTD_algo]
 
 [DTD_algo]: https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/master/docs/pictures/DTD_algo.png
-Obr. X - Aktivity diagram algortimu DTD
+Obr. 2 - Aktivity diagram algortimu DTD
 
 Tieto hranice boli vyčíslené na hodnoty:
 * Horná hranica - 90% kapacity linky (v prípade, že ide o 100Mbit/s pri prekročení 90Mbit/s, nastane presmerovanie toku)
@@ -94,21 +113,33 @@ Náš projekt sa skladá z dvoch hlavných častí, ktoré overujú referenčný
 
 Architektúra daného SDN prostredia sa skladá z nasledujúcich prvkov a je pre oba prípady totožná. RYU SDN kontrolér, ktorého úlohou je poskytovať medzivrstvu medzi prepínačmi (či už reálnymi, alebo emulovanými v Mininet-e ktoré podporujú OpenFlow) a externou aplikáciou. Okrem iného korektne riadiť tok dát v sieti, ktorý môže byť dynamicky upravený pomocou aplikácie. Táto aplikácia s RYU kontrolérom komunikuje pomocou REST API a následne cez tohto prostredníka sa dostávajú riadiace informácie do prepínačov. Tento opis je taktiež možno vidieť na nasledujúcom.
 
-(OBRÁZOK architektúry SND - app + ryu + Oflow)!!!
+![architecture1][architecture1]
+
+[architecture1]:
+https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/architecture.png
+Obr. 6 - Návrh architektúry pre Mininet
 
 ##### Mininet
+![topology1][topology1]
+
+[topology1]:
+https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology1.png
+Obr. 7 - Návrh topológie pre Mininet
+
 
 ##### Reálne prostredie
 Na testovanie SDN siete v reálnom prostredí používame zariadenia Soekris net6501, na ktorých je OS Debian. Architektúra je podobná s Mininet architektúrou. Rozdiel je v použití fyzických SDN prepínačov namiesto Mininet emulátora. V prepínači je na OS Debian spustený proces Open vSwitch, ktorý podporuje OpenFlow. Daný prepínač komunikuje s controllerom, ktorý je implementovaný pomocou RYU a nad ním je aplikácia, ktorá implementuje DTD algoritmus a pomocou RYU API dáva inštrukcie konkrétnym prepínačom, aby sa vytvorila cesta pre konkrétne pakety záložnou cestou.
-
-**(OBRÁZOK architektúry)!!!**
 
 Čo sa ale týka zapojenia a samotnej topológie, bolo potrebné pristúpiť k zmenám, nakoľko nemáme k dispozícií taký počet SDN prepínačov a ani portov na prepínačoch.
 Je teda pravepodobné, že nebude možné vykonať merania na fyzickej topológií tak, aby ju bolo možné porovnať s Mininet topológiou. Vykoná sa len zapojenie a testovanie funkčnosti zapojenia SDN reálnej siete.
 
 Navrhovaná topológia vyzerá nasledovne:
-**(OBRÁZOK fyz. topológie)!!!** 
 
+![topology2][topology2]
+
+[topology2]:
+https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology2.png
+Obr. 8 - Návrh topológie pre reálne prostredie
 
 #### Zhodnotenie a porovnanie emulovaných a reálnych výsledkov
 
