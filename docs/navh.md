@@ -139,7 +139,7 @@ Navrhovaná topológia vyzerá nasledovne:
 
 [topology2]:
 https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology2.png
-Obr. 9 - Návrh topológie pre reálne prostredie
+Obr. 8 - Návrh topológie pre reálne prostredie
 
 #### Zhodnotenie a porovnanie emulovaných a reálnych výsledkov
 
