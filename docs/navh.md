@@ -130,7 +130,7 @@ Na testovanie SDN siete v reálnom prostredí používame zariadenia Soekris net
 
 [architecture]:
 https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/architecture.png
-Obr. 9 - Návrh topológie pre reálne prostredie
+Obr. 8 - Návrh architektúry
 
 Čo sa ale týka zapojenia a samotnej topológie, bolo potrebné pristúpiť k zmenám, nakoľko nemáme k dispozícií taký počet SDN prepínačov a ani portov na prepínačoch.
 Je teda pravepodobné, že nebude možné vykonať merania na fyzickej topológií tak, aby ju bolo možné porovnať s Mininet topológiou. Vykoná sa len zapojenie a testovanie funkčnosti zapojenia SDN reálnej siete.
