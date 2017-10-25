@@ -113,7 +113,11 @@ Náš projekt sa skladá z dvoch hlavných častí, ktoré overujú referenčný
 
 Architektúra daného SDN prostredia sa skladá z nasledujúcich prvkov a je pre oba prípady totožná. RYU SDN kontrolér, ktorého úlohou je poskytovať medzivrstvu medzi prepínačmi (či už reálnymi, alebo emulovanými v Mininet-e ktoré podporujú OpenFlow) a externou aplikáciou. Okrem iného korektne riadiť tok dát v sieti, ktorý môže byť dynamicky upravený pomocou aplikácie. Táto aplikácia s RYU kontrolérom komunikuje pomocou REST API a následne cez tohto prostredníka sa dostávajú riadiace informácie do prepínačov. Tento opis je taktiež možno vidieť na nasledujúcom.
 
-(OBRÁZOK architektúry SND - app + ryu + Oflow)!!!
+![architecture1][architecture1]
+
+[architecture1]:
+https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/architecture1.png
+Obr. 6 - Návrh architektúry pre Mininet
 
 ##### Mininet
 ![topology1][topology1]
@@ -130,7 +134,7 @@ Na testovanie SDN siete v reálnom prostredí používame zariadenia Soekris net
 
 [architecture]:
 https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/architecture.png
-Obr. 8 - Návrh architektúry
+Obr. 8 - Návrh architektúry pre reálne prostredie
 
 Čo sa ale týka zapojenia a samotnej topológie, bolo potrebné pristúpiť k zmenám, nakoľko nemáme k dispozícií taký počet SDN prepínačov a ani portov na prepínačoch.
 Je teda pravepodobné, že nebude možné vykonať merania na fyzickej topológií tak, aby ju bolo možné porovnať s Mininet topológiou. Vykoná sa len zapojenie a testovanie funkčnosti zapojenia SDN reálnej siete.
