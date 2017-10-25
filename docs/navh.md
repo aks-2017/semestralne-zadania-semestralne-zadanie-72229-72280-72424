@@ -23,7 +23,7 @@ Základnú časť topológie siete na Obrázku 1 tvoria tri SDN prepínače, kto
 navzájom prepojené kvôli redundantným cestám. Prepínače sú označené číslami od 1
 do 3. K prepínačom 1 a 3 sú pripojené dve koncové zariadenia. Daný návrh
 topológie ponúka pri komunikácií medzi koncovými zariadeniami na rôznych
-prepínačov viacero ciest, ktorými môže komunikácia prebiehať. Jedna znich slúži
+prepínačov viacero ciest, ktorými môže komunikácia prebiehať. Jedna z nich slúži
 ako primárna cesta a v prípade, že na na nej vznikne zahltenie, tak sa
 premávka presmeruje cez záložnú cestu. Takto je možné udržať jitter a straty paketov
 na minimum. V návrhu topológie sa počíta aj s ošetrením proti možnému vzniku slučiek.
