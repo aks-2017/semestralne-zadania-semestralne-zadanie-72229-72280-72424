@@ -26,7 +26,7 @@ topológie ponúka pri komunikácií medzi koncovými zariadeniami na rôznych
 prepínačov viacero ciest, ktorými môže komunikácia prebiehať. Jedna cesta slúži
 ako primárna cesta a v prípade, že na tejto ceste vznikne zahltenie, tak sa
 premávka presmeruje cez záložnú cestu. Takto je možné udržať latenciu a jitter
-na minimum. V návrhu topológie sa počíta aj s ošetrením proti možnemu vzniku slučiek.
+na minimum. V návrhu topológie sa počíta aj s ošetrením proti možnému vzniku slučiek.
 
 Ďalším prvkom topológii je kontrolér OpenDaylight, ktorý beží na virtuálnom
 serveri s OS Ubuntu. Výber daného kontroléra bol ovplyvnení širokou podporou Java na rôznych zariadeniach. OpenDaylight bol použitý aj pre reálnu implementáciu, ako aj pre prostredie Mininet.
