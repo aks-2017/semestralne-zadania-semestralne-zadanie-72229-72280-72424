@@ -137,6 +137,9 @@ https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xp
 Obr. 8 - Návrh topológie pre reálne prostredie
 
 #### Zhodnotenie a porovnanie emulovaných a reálnych výsledkov
+Výsledky práce v prvom rade dospeli k tomu, že navrhovaný algoritmus DTD je vhodné použiť na minimalizáciu jettru a stratovosti paketov. Ďalej je tento algoritmus vhdoný na riešenie zahltenia na primárnej linke. Takto je môžne dosiahnúť, aby premávka s vysokou prioritou nebola blokavana premávkou s nižšou prioritou na primárnej linke.
+
+Druhý výsledok práce sa zaoberá porovnaním výsledkov meraní z prostredia Mininet a reálneho prostredia. Dosiahnuté hodnoty v obidvoch prostredí sú porovnateľné. Z čoho je možné predpokladať, že prostredie Mininet je dostatočné na to, aby sa priblížilo dosiahnutými výsledkami k reálnemu prostrediu.
 
 #### Literatúra
 https://www.rfc-editor.org/rfc/pdfrfc/rfc7426.txt.pdf - kapitola SDN
