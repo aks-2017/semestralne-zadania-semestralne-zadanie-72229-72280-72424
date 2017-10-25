@@ -19,9 +19,17 @@ Problém ale je napr. v pomerne zložitom spôsobe zabezpečenia kompatibility, 
 Preto sa prišlo s myšlienkou oddelenia kontrolnej časti sieťových prvkov a vytvoriť jeden centrálny prvok (tzv. controller), ktorý zabezpečí kontrolu nad sieťou. Výhodou takéhoto prístupu je, o. i. centralizovaná konfigurácia siete, možnosť videnia celej topológie s pohľadu controllera, čím sa napríklad odstraňuje potreba smerovacích protokolov prítomných v každom zo sieťových zariadení a zbytočne dlhá konvergencia siete pri výpadku. Ako ďalšie pozítívum sa vníma aj oveľa zjedonušená možnosť aplikácie tzv. traffic engineering-u. 
 
 ##### Topológia
-Základnú časť topológie siete na Obrázku 1 tvoria tri SDN prepínače, ktoré sú navzájom prepojené kvôli redundantným cestám. Prepínače sú označené číslami od 1 do 3. K prepínačom 1 a 3 sú pripojené dve koncové zariadenia. Daný návrh topológie ponúka pri komunikácií medzi koncovými zariadeniami na rôznych prepínačov viacero ciest, ktorými môže komunikácia prebiehať. Jedna cesta slúži ako primárna cesta a v prípade, že na tejto ceste vznikne zahltenie, tak sa premávka presmeruje cez záložnú cestu. Takto je možné udržať latenciu a jitter na minimum. V návrhu topológii sa tiež počítam s ošetrením vznikom možných slučiek.
+Základnú časť topológie siete na Obrázku 1 tvoria tri SDN prepínače, ktoré sú
+navzájom prepojené kvôli redundantným cestám. Prepínače sú označené číslami od 1
+do 3. K prepínačom 1 a 3 sú pripojené dve koncové zariadenia. Daný návrh
+topológie ponúka pri komunikácií medzi koncovými zariadeniami na rôznych
+prepínačov viacero ciest, ktorými môže komunikácia prebiehať. Jedna cesta slúži
+ako primárna cesta a v prípade, že na tejto ceste vznikne zahltenie, tak sa
+premávka presmeruje cez záložnú cestu. Takto je možné udržať latenciu a jitter
+na minimum. V návrhu topológie sa počíta aj s ošetrením proti možnemu vzniku slučiek.
 
-Ďalším prvkom topológii je kontrolér OpenDaylight, ktorý beží na virtuálnom servery s OS Ubuntu. Výber daného kontroléra bol ovplyvnení širokou podporou Java na rôznych zariadeniach. OpenDaylight bol použitý aj pre reálnu implementáciu, ako aj pre prostredie Mininet.
+Ďalším prvkom topológii je kontrolér OpenDaylight, ktorý beží na virtuálnom
+serveri s OS Ubuntu. Výber daného kontroléra bol ovplyvnení širokou podporou Java na rôznych zariadeniach. OpenDaylight bol použitý aj pre reálnu implementáciu, ako aj pre prostredie Mininet.
 
 Pri realizáciu topológie boli vybrané prepínače Cisco Catalyst 3650, ktoré bežali na trial verzií IOS-XE s podporou pre OpenFlow. Autori počítali s podporou verzie OpenFlow 1.3, ale   komunikácia medzi prepínačmi a kontrolérom nefungovala. Preto sa rozhodli pre vyskúšanie verzie 1.0, kde komunikácia už bola funkčná.  Všetky porty na prepínačoch boli 100 Mbps. Koncové zariadenia bežali na OS Lubuntu a na každom z nich bol nainštalovaný nástroj na meranie výkonu siete iPerf.
 
