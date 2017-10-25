@@ -33,7 +33,7 @@ serveri s OS Ubuntu. Výber daného kontroléra bol ovplyvnení širokou podporo
 
 Pri realizáciu topológie boli vybrané prepínače Cisco Catalyst 3650, ktoré bežali na trial verzií IOS-XE s podporou pre OpenFlow. Autori počítali s podporou verzie OpenFlow 1.3, ale   komunikácia medzi prepínačmi a kontrolérom nefungovala. Preto sa rozhodli pre vyskúšanie verzie 1.0, kde komunikácia už bola funkčná.  Všetky porty na prepínačoch boli 100 Mbps. Koncové zariadenia bežali na OS Lubuntu a na každom z nich bol nainštalovaný nástroj na meranie výkonu siete iPerf.
 
-![topology](https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology.png){:height="36px" width="36px"}
+<a href="url"><img src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology.png" align="center" height="48" width="48" ></a>
 
 [topology]: https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology.png
 
