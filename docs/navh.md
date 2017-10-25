@@ -19,30 +19,19 @@ Problém ale je napr. v pomerne zložitom spôsobe zabezpečenia kompatibility, 
 Preto sa prišlo s myšlienkou oddelenia kontrolnej časti sieťových prvkov a vytvoriť jeden centrálny prvok (tzv. controller), ktorý zabezpečí kontrolu nad sieťou. Výhodou takéhoto prístupu je, o. i. centralizovaná konfigurácia siete, možnosť videnia celej topológie s pohľadu controllera, čím sa napríklad odstraňuje potreba smerovacích protokolov prítomných v každom zo sieťových zariadení a zbytočne dlhá konvergencia siete pri výpadku. Ako ďalšie pozítívum sa vníma aj oveľa zjedonušená možnosť aplikácie tzv. traffic engineering-u. 
 
 ##### Topológia
-V návrhu topológie boli použité tri prepináče a OpenDaylight kontrolér.
-Topológia bola implementovaná v prostredí Mininet a tiež reálne vytvorená
-pomocou Cisco prepínačov podporujúcich SDN.  Sieť bola tiež pripojená k
-Internetu.
-Základnú časť topológie tvoria tri SDN prepínače, ktoré sú navzájom prepojené.
-Prepínače sú označené číslami od 1 do 3. K prepínačom 1 a 3 sú pripojené dve
-koncové zariadenia. Daný návrh topológie ponúka pri komunikácií medzi koncovými
-zariadeniami na rôznych prepínačov viacero ciest, ktorými môže komunikácia
-prebiehať. Jedna cesta slúži ako primárna cesta a v prípade, že táto cesta je
-preťažená, tak sa premávka presmeruje cez záložnú cestu. Takto je možné udržať
-latenciu a jitter na minimum. V návrhu tiež sa počíta s tým, že redundantné
-cesty sú blokované, aby sa vyhlo zahladeniu na prepínačoch, kvôli možným
-slučkám.
-Ďalším prvkom topológii bol kontrolér OpenDaylight, ktorý bežal na virtuálnom
+Základnú časť topológie siete na Obrázku 1 tvoria tri SDN prepínače, ktoré sú navzájom prepojené kvôli redundantným cestám. Prepínače sú označené číslami od 1 do 3. K prepínačom 1 a 3 sú pripojené dve koncové zariadenia. Daný návrh topológie ponúka pri komunikácií medzi koncovými zariadeniami na rôznych prepínačov viacero ciest, ktorými môže komunikácia prebiehať. Jedna cesta slúži ako primárna cesta a v prípade, že na tejto ceste vznikne zahltenie, tak sa premávka presmeruje cez záložnú cestu. Takto je možné udržať latenciu a jitter na minimum. V návrhu topológii sa tiež počítam s ošetrením vznikom možných slučiek.
+Ďalším prvkom topológii je kontrolér OpenDaylight, ktorý beží na virtuálnom
 servery s OS Ubuntu. Výber daného kontroléra bol ovplyvnení širokou podporou
 Java na rôznych zariadeniach. OpenDaylight bol použitý aj pre reálnu
 implementáciu, ako aj pre prostredie Mininet.
-Pre realizáciu topológie boli vybrané prepínače Cisco Catalyst 3650, ktoré
-bežali na skorej trial verzií IOS-XE s podporou pre OpenFlow. Mala byť
-podporovaná verzia OpenFlow 1.3, ale autorom   nefungovala komunikácia
-prepínačov s kontrolórom. Preto sa rozhodli pre vyskúšanie verzie 1.0, kde
-komunikácia už bola funkčná.  Všetky porty na prepínačoch boli 100 Mbps. Koncové
-zariadenia bežali na OS Lubuntu a na každom z nich bol nainštalovaný nástroj na
-meranie Iperf. 
+Pri realizáciu topológie boli vybrané prepínače Cisco Catalyst 3650, ktoré bežali na trial verzií IOS-XE s podporou pre OpenFlow. Autori počítali s podporou verzie OpenFlow 1.3, ale   komunikácia medzi prepínačmi a kontrolérom nefungovala. Preto sa rozhodli pre vyskúšanie verzie 1.0, kde komunikácia už bola funkčná.  Všetky porty na prepínačoch boli 100 Mbps. Koncové zariadenia bežali na OS Lubuntu a na každom z nich bol nainštalovaný nástroj na meranie výkonu siete iPerf.
+
+![topology][topology]
+
+[topolgy]:
+https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/master/docs/pictures/topology.png
+Obr. 1 - Návrh topológie
+
 ##### Algoritmus DTD
 Algoritmus DTD (Dynamic Traffic Diversion) bol vytvorený pre testovacie účely, pomocou ktorého je možné dynamicky meniť tok premávky, za účelom zníženia straty paketov a jitter-u.
 
