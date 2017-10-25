@@ -22,11 +22,10 @@ Preto sa prišlo s myšlienkou oddelenia kontrolnej časti sieťových prvkov a 
 Základnú časť topológie siete na Obrázku 1 tvoria tri SDN prepínače, ktoré sú
 navzájom prepojené kvôli redundantným cestám. Prepínače sú označené číslami od 1
 do 3. K prepínačom 1 a 3 sú pripojené dve koncové zariadenia. Daný návrh
-topológie ponúka pri komunikácií medzi koncovými zariadeniami na rôznych
-prepínačov viacero ciest, ktorými môže komunikácia prebiehať. Jedna cesta slúži
-ako primárna cesta a v prípade, že na tejto ceste vznikne zahltenie, tak sa
-premávka presmeruje cez záložnú cestu. Takto je možné udržať latenciu a jitter
-na minimum. V návrhu topológie sa počíta aj s ošetrením proti možnému vzniku slučiek [1].
+topológie ponúka pri komunikácií medzi koncovými zariadeniami na rôznych prepínačov viacero ciest, ktorými môže komunikácia prebiehať. Jedna z nich slúži
+ako primárna cesta a v prípade, že na na nej vznikne zahltenie, tak sa
+premávka presmeruje cez záložnú cestu. Takto je možné udržať jitter a straty paketov
+na minimum. V návrhu topológie sa počíta aj s ošetrením proti možnému vzniku slučiek.
 
 Ďalším prvkom topológii je kontrolér OpenDaylight, ktorý beží na virtuálnom
 serveri s OS Ubuntu. Výber daného kontroléra bol ovplyvnení širokou podporou Java na rôznych zariadeniach. OpenDaylight bol použitý aj pre reálnu implementáciu, ako aj pre prostredie Mininet [1].
@@ -112,7 +111,7 @@ Architektúra daného SDN prostredia sa skladá z nasledujúcich prvkov a je pre
 Obr. 6 - Návrh architektúry
 
 ##### Mininet
-
+V návrhu našej topológie sme sa rozhodli trochu upraviť pôvodnu topológiu tým, že niektoré časti sme sa rozhodli vynechať. Konfigurácia siete bude na základe kontroléra. Chceme minimalizovať akúkoľvek konfiguráciu na hardverových prepínačoch. Určenie primárnej a v prípade potreby sukundárnej cesty sa bude riešiť cez kontrolér podobne ako v pôvodnom riešení.
 
 
 <img align="center" alt="Mininet_topology" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology1.png" width="400">
@@ -131,8 +130,8 @@ Je teda pravepodobné, že nebude možné vykonať merania na fyzickej topológi
 Obr. 8 - Návrh topológie pre reálne prostredie
 
 #### Zhodnotenie a porovnanie emulovaných a reálnych výsledkov
-Výsledky práce v prvom rade dospeli k tomu, že navrhovaný algoritmus DTD je vhodné použiť na minimalizáciu jettru a stratovosti paketov. Ďalej je tento algoritmus vhdoný na riešenie zahltenia na primárnej linke. Takto je môžne dosiahnúť, aby premávka s vysokou prioritou nebola blokavana premávkou s nižšou prioritou na primárnej linke [1].
 
+Výsledky práce v prvom rade dospeli k tomu, že navrhovaný algoritmus DTD je vhodné použiť na minimalizáciu jittru a stratovosti paketov. Ďalej je tento algoritmus vhodný na riešenie zahltenia na primárnej linke. Takto je môžne dosiahnúť, aby premávka s vysokou prioritou nebola blokovaná premávkou s nižšou prioritou na primárnej linke.
 Druhý výsledok práce sa zaoberá porovnaním výsledkov meraní z prostredia Mininet a reálneho prostredia. Dosiahnuté hodnoty v obidvoch prostredí sú porovnateľné. Z čoho je možné predpokladať, že prostredie Mininet je dostatočné na to, aby sa priblížilo dosiahnutými výsledkami k reálnemu prostrediu [1].
 
 #### Literatúra
