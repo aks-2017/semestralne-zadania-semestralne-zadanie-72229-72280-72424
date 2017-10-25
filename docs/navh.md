@@ -8,7 +8,7 @@
 Táto časť dokumentu sa venuje opisu pôvodného riešenia podľa referenčného článku, spolu s výsledkami testovania.
 
 ##### Úvod
-Pre vývoj v oblasti sieťových zariadení je pomerne často využívaný emulovaný systém. Má množstvo výhod, no tak isto aj svoje nevýhody. Pre SDN siete paltí podobné pravidlo. Avšak, naskytá sa otázka, či je emulovaný systém dôveryhodným zdrojom výsledkov.
+Pre vývoj v oblasti sieťových zariadení je pomerne často využívaný emulovaný systém. Má množstvo výhod, no tak isto aj svoje nevýhody. Pre SDN siete platí podobné pravidlo. Avšak, naskytá sa otázka, či je emulovaný systém dôveryhodným zdrojom výsledkov.
 
 Overenie tejto problematiky bolo témou článku, ktorý sme si vybrali. Porovnáva reálne prostredie, tvorené fyzickými prepínačmi s podporou SDN a emulátorom Mininet.
 
@@ -41,11 +41,11 @@ Algoritmus DTD (Dynamic Traffic Diversion) bol vytvorený pre testovacie účely
 
 Strata paketov je zlyhanie odosielaných paketov, ktoré prichádzajú do cieľa, zatiaľ čo jitter je meranie odchýlky v čase medzi doručením paketu [1].
 
-Úlohou algoritmu je v pravidelných intervaloch vyhodnocovať vyťaženosť portov na smerovačoch a v prípade zahltenia (resp. prekročenia stanovenej hranice), odľahčiť tok dát záložnou linkou. Ak v nejakom okamihu klesne hranica vyžaženosti opäť na prijateľnú, záložná linka sa prestane využívať a premávka bude posielaná cez prioritnú linku. Popis algoritmu je tiež možno vidieť v aktivity diagrame č. X pod odstavcom [1].
+Úlohou algoritmu je v pravidelných intervaloch vyhodnocovať vyťaženosť portov na smerovačoch a v prípade zahltenia (resp. prekročenia stanovenej hranice), odľahčiť tok dát záložnou linkou. Ak v nejakom okamihu klesne hranica vyťaženosti opäť na prijateľnú, záložná linka sa prestane využívať a premávka bude posielaná cez prioritnú linku. Popis algoritmu je tiež možno vidieť v aktivity diagrame č. 2 pod odstavcom [1].
 
 <img align="center" alt="DTD_algo" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/master/docs/pictures/DTD_algo.png" width="400">
 
-Obr. 2 - Aktivity diagram algortimu DTD [1]
+Obr. 2 - Aktivity diagram algoritmu DTD [1]
 
 Tieto hranice boli vyčíslené na hodnoty:
 * Horná hranica - 90% kapacity linky (v prípade, že ide o 100Mbit/s pri prekročení 90Mbit/s, nastane presmerovanie toku)
@@ -55,7 +55,7 @@ Na vytvorenie aplikácie sa rozhodli využiť Python z dôvodu, že pri základn
 
 Pre otestovanie tohto algoritmu, zostrojili testovaciu topológiu skladajúcu sa z 3-ch hlavných prepínačov prepojených každý s každým (jedna cesta je primárna, druhá sekundárna). Viac o topológií je písané v kapitole Topológia [1].
 
-Na testovanie rýchlosti, straty paketov a jitter-u využili program IPerf, ktorý je zároveň generátorom paketov ako aj nástrojom pre rôzne merania v sieti. Daný program sa využíva na ladenie výkonu v sieťach a medzi jeho hlavné výhodny patria:
+Na testovanie rýchlosti, straty paketov a jitter-u využili program IPerf, ktorý je zároveň generátorom paketov ako aj nástrojom pre rôzne merania v sieti. Daný program sa využíva na ladenie výkonu v sieťach a medzi jeho hlavné výhody patria:
 * Schopnosť fungovania na rôznych platformách (Windows, Unix, Linux)
 * Otvorený zdrojový kód napísaný v jazyku C
 * Umožňuje jednostranné ale aj obojsmerné merania
@@ -71,12 +71,12 @@ Testované boli 3 scenáre:
 3. Výkonnostný test s použitím DTD [1]
 
 ###### Základný test
-Úlohou základného testu je zistiť počiatočné podmienky a vlastnosti (jitter) danej topológie. Spočíva v UDP komunikácií uzlov H1 a H3. Uzol H1 posiela 600MB dát rýchlosťou 50Mb/s a nakoľko tam nie je žiadna iná premávka, nedochádza k strate paketov a jitter je sposobený len oneskorením na linkách [1].
+Úlohou základného testu je zistiť počiatočné podmienky a vlastnosti (jitter) danej topológie. Spočíva v UDP komunikácií uzlov H1 a H3. Uzol H1 posiela 600MB dát rýchlosťou 50Mb/s a nakoľko tam nie je žiadna iná premávka, nedochádza k strate paketov a jitter je spôsobený len oneskorením na linkách [1].
  
 ![Test 1 Graph][test_1]
 
 [test_1]: https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/master/docs/pictures/test_1.PNG
-Obr. 3 - Porovnanie hodnôt jitteru pre obe testované prostredia (scenár 1) [1]
+Obr. 3 - Porovnanie hodnôt jitter-u pre obe testované prostredia (scenár 1) [1]
 
 ###### Výkonnostný test bez DTD
 Hlavným cieľom tohto scenára bolo určiť správanie sa siete počas zahltenia. Uzly H1 a H3 komunikujú rovnako ako v prípade 1. testu. Okrem nich však do siete pribudla komunikácia ulzov H2 a H4, ktoré si posielajú veľké množstvo UDP paketov rýchlosťou 95Mb/s. Táto skutočnosť zapríčiní zahltenie linky medzi prepínačmi a teda zvýši sa stratovosť paketov a zvýši jitter, čo je predpokladaný jav. Okrem toho sa začnú strácať pakety, pričom táto stratovosť dosiahla v priemere 50% pre reálne prostredie a 34% v Mininete [1].
@@ -84,15 +84,15 @@ Hlavným cieľom tohto scenára bolo určiť správanie sa siete počas zahlteni
 ![Test 2 Graph][test_2]
 
 [test_2]: https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/master/docs/pictures/test_2.PNG
-Obr. 4 - Porovnanie hodnôt jitteru pre obe testované prostredia (scenár 2) [1]
+Obr. 4 - Porovnanie hodnôt jitter-u pre obe testované prostredia (scenár 2) [1]
 
 ###### Výkonnostný test s použitím DTD
-Cieľom tohto testu bolo overiť hypotézu, či aplikácia za použitia DTD dokáže znížiť čas potrebný na doručenie paketov (jitter) a zvýši celkovú doručiteľnsoť paketov (packet loss). Scenár je v podstate identický s predchádzajúcim, no pribudla v ňom situácia, v ktorej, keď dojde k zahlteniu linky na viac, ako 90%, presmeruje sa premávka z H1 do H3 na záložnú linku, čím sa má dosiahnuť spomínaný cieľ [1].
+Cieľom tohto testu bolo overiť hypotézu, či aplikácia za použitia DTD dokáže znížiť čas potrebný na doručenie paketov (jitter) a zvýši celkovú doručiteľnsoť paketov (packet loss). Scenár je v podstate identický s predchádzajúcim, no pribudla v ňom situácia, v ktorej, keď dôjde k zahlteniu linky na viac, ako 90%, presmeruje sa premávka z H1 do H3 na záložnú linku, čím sa má dosiahnuť spomínaný cieľ [1].
  
 ![Test 3 Graph][test_3]
 
 [test_3]: https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/master/docs/pictures/test_3.PNG
-Obr. 5 - Porovnanie hodnôt jitteru pre obe testované prostredia (scenár 3) [1]
+Obr. 5 - Porovnanie hodnôt jitter-u pre obe testované prostredia (scenár 3) [1]
 
 Ako už bolo spomenuté, maximálna hodnota využitia linky, ktorá sa považuje za kritickú, je 90%, čiže 90Mb/s. Avšak, v prípade, že využitie linky kleslo, tým pádom už zahltenie na prioritnej ceste nemáme, premávka sa zo záložnej linky presmeruje opäť na štandardnú. Táto situácia nastane, ak je využitie danej linky pod 70%, a teda 70Mb/s [1].
 
@@ -111,7 +111,7 @@ Architektúra daného SDN prostredia sa skladá z nasledujúcich prvkov a je pre
 Obr. 6 - Návrh architektúry
 
 ##### Mininet
-V návrhu našej topológie sme sa rozhodli trochu upraviť pôvodnu topológiu tým, že niektoré časti sme sa rozhodli vynechať. Konfigurácia siete bude na základe kontroléra. Chceme minimalizovať akúkoľvek konfiguráciu na hardverových prepínačoch. Určenie primárnej a v prípade potreby sukundárnej cesty sa bude riešiť cez kontrolér podobne ako v pôvodnom riešení.
+V návrhu našej topológie sme sa rozhodli trochu upraviť pôvodnú topológiu tým, že niektoré časti sme sa rozhodli vynechať. Konfigurácia siete bude na základe kontroléra. Chceme minimalizovať akúkoľvek konfiguráciu na hardvérových prepínačoch. Určenie primárnej a v prípade potreby sukundárnej cesty sa bude riešiť cez kontrolér podobne ako v pôvodnom riešení.
 
 
 <img align="center" alt="Mininet_topology" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology1.png" width="400">
@@ -123,7 +123,7 @@ Obr. 7 - Návrh topológie pre Mininet
 Na testovanie SDN siete v reálnom prostredí používame zariadenia Soekris net6501, na ktorých je OS Debian. Architektúra je podobná s Mininet architektúrou. Rozdiel je v použití fyzických SDN prepínačov namiesto Mininet emulátora. V prepínači je na OS Debian spustený proces Open vSwitch, ktorý podporuje OpenFlow. Daný prepínač komunikuje s controllerom, ktorý je implementovaný pomocou RYU a nad ním je aplikácia, ktorá implementuje DTD algoritmus a pomocou RYU API dáva inštrukcie konkrétnym prepínačom, aby sa vytvorila cesta pre konkrétne pakety záložnou cestou.
 
 Čo sa ale týka zapojenia a samotnej topológie, bolo potrebné pristúpiť k zmenám, nakoľko nemáme k dispozícií taký počet SDN prepínačov a ani portov na prepínačoch.
-Je teda pravepodobné, že nebude možné vykonať merania na fyzickej topológií tak, aby ju bolo možné porovnať s Mininet topológiou. Vykoná sa len zapojenie a testovanie funkčnosti zapojenia SDN reálnej siete. Navrhovaná topológia vyzerá nasledovne:
+Je teda pravdepodobné, že nebude možné vykonať merania na fyzickej topológií tak, aby ju bolo možné porovnať s Mininet topológiou. Vykoná sa len zapojenie a testovanie funkčnosti zapojenia SDN reálnej siete. Navrhovaná topológia vyzerá nasledovne:
 
 <img align="center" alt="Real_topology" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology2.png" width="400">
 
@@ -131,7 +131,7 @@ Obr. 8 - Návrh topológie pre reálne prostredie
 
 #### Zhodnotenie a porovnanie emulovaných a reálnych výsledkov
 
-Výsledky práce v prvom rade dospeli k tomu, že navrhovaný algoritmus DTD je vhodné použiť na minimalizáciu jittru a stratovosti paketov. Ďalej je tento algoritmus vhodný na riešenie zahltenia na primárnej linke. Takto je môžne dosiahnúť, aby premávka s vysokou prioritou nebola blokovaná premávkou s nižšou prioritou na primárnej linke.
+Výsledky práce v prvom rade dospeli k tomu, že navrhovaný algoritmus DTD je vhodné použiť na minimalizáciu jittru a stratovosti paketov. Ďalej je tento algoritmus vhodný na riešenie zahltenia na primárnej linke. Takto je možné dosiahnuť, aby premávka s vysokou prioritou nebola blokovaná premávkou s nižšou prioritou na primárnej linke.
 
 Druhý výsledok práce sa zaoberá porovnaním výsledkov meraní z prostredia Mininet a reálneho prostredia. Dosiahnuté hodnoty v obidvoch prostredí sú porovnateľné. Z čoho je možné predpokladať, že prostredie Mininet je dostatočné na to, aby sa priblížilo dosiahnutými výsledkami k reálnemu prostrediu [1].
 
