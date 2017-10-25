@@ -33,7 +33,7 @@ serveri s OS Ubuntu. Výber daného kontroléra bol ovplyvnení širokou podporo
 
 Pri realizáciu topológie boli vybrané prepínače Cisco Catalyst 3650, ktoré bežali na trial verzií IOS-XE s podporou pre OpenFlow. Autori počítali s podporou verzie OpenFlow 1.3, ale   komunikácia medzi prepínačmi a kontrolérom nefungovala. Preto sa rozhodli pre vyskúšanie verzie 1.0, kde komunikácia už bola funkčná.  Všetky porty na prepínačoch boli 100 Mbps. Koncové zariadenia bežali na OS Lubuntu a na každom z nich bol nainštalovaný nástroj na meranie výkonu siete iPerf.
 
-<img align="center" style="margin-left:5em;" alt="Topology picture" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology.png" width="400">
+<img align="center" alt="Topology picture" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology.png" width="400">
 
 Obr. 1 - Návrh topológie
 
@@ -44,7 +44,7 @@ Strata paketov je zlyhanie odosielaných paketov, ktoré prichádzajú do cieľa
 
 Úlohou algoritmu je v pravidelných intervaloch vyhodnocovať vyťaženosť portov na smerovačoch a v prípade zahltenia (resp. prekročenia stanovenej hranice), odľahčiť tok dát záložnou linkou. Ak v nejakom okamihu klesne hranica vyžaženosti opäť na prijateľnú, záložná linka sa prestane využívať a premávka bude posielaná cez prioritnú linku. Popis algoritmu je tiež možno vidieť v aktivity diagrame č. X pod odstavcom.
 
-<div> <img align="left" alt="DTD_algo" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/master/docs/pictures/DTD_algo.png" width="400"> </div>
+<img align="center" alt="DTD_algo" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/master/docs/pictures/DTD_algo.png" width="400">
 
 Obr. 2 - Aktivity diagram algortimu DTD
 
@@ -107,7 +107,7 @@ Náš projekt sa skladá z dvoch hlavných častí, ktoré overujú referenčný
 
 Architektúra daného SDN prostredia sa skladá z nasledujúcich prvkov a je pre oba prípady totožná. RYU SDN kontrolér, ktorého úlohou je poskytovať medzivrstvu medzi prepínačmi (či už reálnymi, alebo emulovanými v Mininet-e ktoré podporujú OpenFlow) a externou aplikáciou. Okrem iného korektne riadiť tok dát v sieti, ktorý môže byť dynamicky upravený pomocou aplikácie. Táto aplikácia s RYU kontrolérom komunikuje pomocou REST API a následne cez tohto prostredníka sa dostávajú riadiace informácie do prepínačov. Tento opis je taktiež možno vidieť na nasledujúcom.
 
-<div> <img align="left" alt="architecture_design" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/architecture.png" width="400"> </div>
+<img align="center" alt="architecture_design" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/architecture.png" width="400">
 
 Obr. 6 - Návrh architektúry
 
@@ -115,7 +115,7 @@ Obr. 6 - Návrh architektúry
 
 
 
-<div> <img align="left" alt="Mininet_topology" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology1.png" width="400"> </div>
+<img align="center" alt="Mininet_topology" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology1.png" width="400">
 
 Obr. 7 - Návrh topológie pre Mininet
 
@@ -126,7 +126,7 @@ Na testovanie SDN siete v reálnom prostredí používame zariadenia Soekris net
 Čo sa ale týka zapojenia a samotnej topológie, bolo potrebné pristúpiť k zmenám, nakoľko nemáme k dispozícií taký počet SDN prepínačov a ani portov na prepínačoch.
 Je teda pravepodobné, že nebude možné vykonať merania na fyzickej topológií tak, aby ju bolo možné porovnať s Mininet topológiou. Vykoná sa len zapojenie a testovanie funkčnosti zapojenia SDN reálnej siete. Navrhovaná topológia vyzerá nasledovne:
 
-<div> <img align="left" alt="Real_topology" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology2.png" width="400"> </div>
+<img align="center" alt="Real_topology" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology2.png" width="400">
 
 Obr. 8 - Návrh topológie pre reálne prostredie
 
