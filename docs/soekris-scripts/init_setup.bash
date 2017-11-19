@@ -3,8 +3,9 @@
 # The primary network interface
 printf '\n# The OpenFlow Switch interfaces\nauto enp6s0\niface enp6s0 inet manual\n\tpre-up ifconfig $IFACE promisc up\n\tpost-down ifconfig $IFACE promisc down\n\nauto enp10s0\niface enp10s0 inet manual\n\tpre-up ifconfig $IFACE promisc up\n\tpost-down ifconfig $IFACE promisc down\n\nauto enp11s0\niface enp11s0 inet manual\n\tpre-up ifconfig $IFACE promisc up\n\tpost-down ifconfig $IFACE promisc down' >> /etc/network/interfaces
 
-# Installation of Open vSwitch
-apt-get install openvswitch-switch -y
+# Installation of Open vSwitch and other software for switch_setup.py script usage
+apt-get install python-pip openvswitch-switch -y
+python -m pip install IPy
 
 # Creation of OF switch and add port to brigde
 service openvswitch-switch start
