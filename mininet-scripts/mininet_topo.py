@@ -50,9 +50,12 @@ def run():
     sw = net.get('s3')
     sw.cmd('ovs-vsctl set Bridge s3 protocols=OpenFlow13')
 	
+    cmd = ['ryu-manager ryu.app.ofctl_rest ryu.app.simple_switch_13']
     p = Popen(cmd, shell= True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True)
     if p.poll() == None:
+        print ("Ryu and Ryu.apps are running.") 
     else:
+        print ("Ryu and Ryu.apps are not running.")
     
     CLI(net)
     net.stop()
