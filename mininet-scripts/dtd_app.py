@@ -7,7 +7,7 @@ upperThreshold = 0.9
 lowerThreshold = 0.7
 primaryRoute = 0
 backupRoute = 1
-max_speed = 10485760
+max_speed = 104857600/8
 state = primaryRoute
 B_to_MB = float(1024**2)
 
@@ -104,16 +104,18 @@ while True:
 	currentTxBytesBckp = totalTxBytesBckp - oldTxBytesBckp
 	
 	if totalTxBytes != oldTxBytes:
+		print(currentTxBytes)
+		print(max_speed * upperThreshold)
 		if (currentTxBytes) > (max_speed * upperThreshold) and state is primaryRoute:
 			state = backupRoute
 			switch_route(state)
-		
 		if (currentTxBytes) < (max_speed * lowerThreshold) and state is backupRoute:
 			state = primaryRoute
-                        switch_route(state)
+			switch_route(state)
 	os.system('clear')
-	print("SW    Num Port   Tx_Bytes   Tx_Bytes/s")
+
+	print("SW    Num Port   Tx_Bytes   Tx_Bits/s")
 	print("--------------------------------------")
-	print('1     4          ' + str(round(totalTxBytes/B_to_MB, 2)) + 'MB        ' + str(round(currentTxBytes/B_to_MB, 2)) + 'MB/s')
-	print('2     2          ' + str(round(totalTxBytesBckp/B_to_MB, 2)) + 'MB        ' + str(round(currentTxBytesBckp/B_to_MB, 2)) + 'MB/s')
+	print('1     4          ' + str(round(totalTxBytes/B_to_MB, 2)) + 'MB        ' + str(round(currentTxBytes/B_to_MB*8, 2)) + 'Mbit/s')
+	print('2     2          ' + str(round(totalTxBytesBckp/B_to_MB, 2)) + 'MB        ' + str(round(currentTxBytesBckp/B_to_MB*8, 2)) + 'Mbit/s')
 	time.sleep(1)
