@@ -49,6 +49,10 @@ def run():
     sw.cmd('ovs-vsctl set Bridge s2 protocols=OpenFlow13')
     sw = net.get('s3')
     sw.cmd('ovs-vsctl set Bridge s3 protocols=OpenFlow13')
+	
+    p = Popen(cmd, shell= True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True)
+    if p.poll() == None:
+    else:
     
     CLI(net)
     net.stop()
