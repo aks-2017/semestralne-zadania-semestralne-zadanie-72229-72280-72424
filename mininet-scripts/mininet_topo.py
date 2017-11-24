@@ -15,10 +15,10 @@ class SimplePktSwitch(Topo):
         super(SimplePktSwitch, self).__init__(**opts)
 
         # Add hosts and switches
-        h1 = self.addHost('h1', ip="172.16.10.10/24")
-        h2 = self.addHost('h2', ip="172.16.20.10/24")
-        h3 = self.addHost('h3', ip="172.16.30.10/24")
-        h4 = self.addHost('h4', ip="172.16.40.10/24")
+        h1 = self.addHost('h1', mac="00:00:00:00:00:01", ip="10.0.0.1/24")
+        h2 = self.addHost('h2', mac="00:00:00:00:00:02", ip="10.0.0.2/24")
+        h3 = self.addHost('h3', mac="00:00:00:00:00:03", ip="10.0.0.3/24")
+        h4 = self.addHost('h4', mac="00:00:00:00:00:04", ip="10.0.0.4/24")
 
         # Adding switches
         s1 = self.addSwitch('s1', dpid="1")
@@ -26,14 +26,14 @@ class SimplePktSwitch(Topo):
         s3 = self.addSwitch('s3', dpid="3")
 
         # Add links
-        self.addLink(h1, s1, 1, 1, bw=100)
-        self.addLink(h2, s1, 1, 4, bw=100)
-        self.addLink(h3, s3, 1, 1, bw=100)
-        self.addLink(h4, s3, 1, 2, bw=100)
+        self.addLink(h1, s1, 0, 1, bw=100)
+        self.addLink(h2, s1, 0, 2, bw=100)
+        self.addLink(h3, s3, 0, 1, bw=100)
+        self.addLink(h4, s3, 0, 2, bw=100)
 
-        self.addLink(s1, s2, 2, 2, bw=100)
-        self.addLink(s2, s3, 4, 4, bw=100)
-        self.addLink(s1, s3, 3, 3, bw=100)
+        self.addLink(s1, s2, 3, 1, bw=100)
+        self.addLink(s2, s3, 2, 3, bw=100)
+        self.addLink(s1, s3, 4, 4, bw=100)
 
 
 #topos = { 'mytopo': ( lambda: SimplePktSwitch() ) }
@@ -42,14 +42,6 @@ def run():
     c = RemoteController('c', '127.0.0.1', 6633)
     net = Mininet(topo=SimplePktSwitch(), host=CPULimitedHost, link=TCLink, controller=c)
     net.start()
-    h = net.get('h1')
-    h.cmd('ip route add default via 172.16.10.1')
-    h = net.get('h2')
-    h.cmd('ip route add default via 172.16.20.1')
-    h = net.get('h3')
-    h.cmd('ip route add default via 172.16.30.1')
-    h = net.get('h4')
-    h.cmd('ip route add default via 172.16.40.1')
   	
     sw = net.get('s1')
     sw.cmd('ovs-vsctl set Bridge s1 protocols=OpenFlow13')
@@ -58,13 +50,6 @@ def run():
     sw = net.get('s3')
     sw.cmd('ovs-vsctl set Bridge s3 protocols=OpenFlow13')
     
-    cmd = ['ryu-manager ryu.app.ofctl_rest ryu.app.rest_router']
-    p = Popen(cmd, shell= True, stdin=PIPE, stdout=PIPE, stderr=STDOUT, close_fds=True)
-    if p.poll() == None:
-	print ("Ryu is running.") 
-    else:
-	print ("Ryu is not running.")
-	 
     CLI(net)
     net.stop()
 
