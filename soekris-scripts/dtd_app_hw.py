@@ -121,7 +121,7 @@ while True:
 	totalTxBytesBckp = getPortStatsInfo1()
 	currentTxBytesBckp = totalTxBytesBckp - oldTxBytesBckp
 	
-	'''if totalTxBytes != oldTxBytes:
+	if totalTxBytes != oldTxBytes:
 		print(currentTxBytes)
 		print(max_speed * upperThreshold)
 		if (currentTxBytes) > (max_speed * upperThreshold) and state is primaryRoute:
@@ -130,7 +130,7 @@ while True:
 		if (currentTxBytes) < (max_speed * lowerThreshold) and state is backupRoute:
 			state = primaryRoute
 			switch_route(state)
-	'''
+	
 	os.system('clear')
 
 	print("SW    Num Port   Tx_Bytes   Tx_Bits/s")

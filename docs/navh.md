@@ -118,20 +118,39 @@ Obr. 7 - Návrh topológie pre Mininet
 
 
 #### Reálne prostredie
-Na testovanie SDN siete v reálnom prostredí používame zariadenia Soekris net6501, na ktorých je OS Debian. Architektúra je podobná s Mininet architektúrou. Rozdiel je v použití fyzických SDN prepínačov namiesto Mininet emulátora. V prepínači je na OS Debian spustený proces Open vSwitch, ktorý podporuje OpenFlow. Daný prepínač komunikuje s controllerom, ktorý je implementovaný pomocou RYU a nad ním je aplikácia, ktorá implementuje DTD algoritmus. Aplikácia pomocou RYU API dáva inštrukcie konkrétnym prepínačom, aby sa vytvorila cesta pre konkrétne pakety záložnou cestou.
+Na testovanie SDN siete v reálnom prostredí používame zariadenie Soekris net6501, na ktorom je OS Debian. Architektúra je podobná s Mininet architektúrou. Rozdiel je v použití fyzického SDN prepínača v spolupráci s úplne bežným prepínačom, namiesto Mininet emulátora. V prepínači je na OS Debian spustený proces Open vSwitch, ktorý podporuje OpenFlow. Daný prepínač komunikuje s controllerom, ktorý je implementovaný pomocou RYU a nad ním je aplikácia, ktorá implementuje DTD algoritmus. Aplikácia pomocou RYU API dáva inštrukcie prepínaču, aby sa vytvorila cesta pre konkrétne pakety záložnou cestou (v prípade potreby).
 
 Čo sa ale týka zapojenia a samotnej topológie, bolo potrebné pristúpiť k zmenám, nakoľko nemáme k dispozícií taký počet SDN prepínačov a ani portov na prepínačoch.
-Je teda pravdepodobné, že nebude možné vykonať merania na fyzickej topológií tak, aby ju bolo možné porovnať s Mininet topológiou. Vykoná sa len zapojenie a testovanie funkčnosti zapojenia SDN reálnej siete. Navrhovaná topológia vyzerá nasledovne:
+Nakoľko hardvérový SDN prepínač disponuje len 4 portami, z toho 1 je použitý pre komunikáciu zariadenia s controllerom, čiže prakticky sú k dispozícií len 3 porty. Z tohto dôvodu sa zmenšil počet hostov zo 4 na 2.
 
 <img align="center" alt="Real_topology" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_luka/docs/pictures/topology2.png" width="400">
 
 Obr. 8 - Návrh topológie pre reálne prostredie
+
+### Implementácia navrhovaného riešenia
+Obsahom tejto časti je opis konkrétnej implementácie DTD algoritmu spolu s potrebnými skriptmi pre prípravu jednotlivých prostredí na testovanie.
+
+#### Mininet
+
+#### Reálne prostredie (Soekris net6501)
+Aby sme mohli pracovať so zariadením pomocou controllera, ktorý komunikuje so zariadeniami prostredníctvom protokolu OpenFlow, je potrebné zariadenie na to pripraviť. Nainštalovanie aplikácie openvswitch-switch spolu s potrebným nastavením rozhraní je realizované pomocou skriptu 'init_setup.bash', ktorý okrem toho vykoná aj nastevnie používanej verzie OpenFlow na verzie 1.0 a 1.3.
+
+Pre jednoduchšiu prácu s portom využívaným na manažment (pripojený na controller) bol vytvorený skript (switch_setup.py), ktorý pomocou prepínačou umožňuje zmeniť pridelenú adresu/masku/predvolenú bránu pomocou DHCP na statickú a tak isto umožňuje zmeniť aj adresu a port controllera.
+
+Posledný skript je upravená verzia skriptu DTD algoritmu pre mininet topológiu. Úprava bola nevyhnutná z dôvodu rozdielnosti topológií a počte OF zariadení. 
 
 ### Zhodnotenie a porovnanie emulovaných a reálnych výsledkov
 
 Výsledky práce v prvom rade dospeli k tomu, že navrhovaný algoritmus DTD je vhodné použiť na minimalizáciu jitteru a stratovosti paketov. Ďalej je tento algoritmus vhodný na riešenie zahltenia na primárnej linke. Takto je možné dosiahnuť, aby premávka s vysokou prioritou nebola blokovaná premávkou s nižšou prioritou na primárnej linke.
 
 Druhý výsledok práce sa zaoberá porovnaním výsledkov meraní z prostredia Mininet a reálneho prostredia. Dosiahnuté hodnoty v obidvoch prostredí sú porovnateľné. Z čoho je možné predpokladať, že prostredie Mininet je dostatočné na to, aby sa priblížilo dosiahnutými výsledkami k reálnemu prostrediu [1].
+
+#### Výsledky našich meraní
+Ako bolo spomenuté v kapitole testovanie, prevzali sme scenáre z pôvodného článku.
+K úpravám dochádza len v prípade reálneho prostredia, nakoľko nebolo možné zapojiť toľko zariadení a využiť všade 100Mbit linky. Bolo preto potrebné pristúpiť k zníženiu prenosovej rýchlosti medzi prepínačmi a to na 10Mbit (iné zmenšenie zariadenie Soekris neposkytuje) a teda všetky parametre meraní boli v prípade reálneho zapojenia a testovania 10-násobne zmenšené, aby sa zachoval pomer v súlade z mininet testovaním.
+
+Výsledky sme, podobne ako autori pôvodného článku, zhrnuli do nasledujúcich grafov:
+
 
 ### Literatúra
 [1] BARRETT, Robert, et al. Dynamic Traffic Diversion in SDN: testbed vs Mininet. In: Computing, Networking and Communications (ICNC), 2017 International Conference on. IEEE, 2017. p. 167-171 (http://ieeexplore.ieee.org/document/7876121/references).
