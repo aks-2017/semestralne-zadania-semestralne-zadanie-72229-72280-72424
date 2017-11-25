@@ -13,6 +13,7 @@ def main():
 	else:
 		print "No parameter selected."
 
+#set all needed arguments to parser
 def argsSetUp():
         examples = '''Examples:
  python switch_setup.py -a 192.168.0.25 -m 255.255.255.0 -g 192.168.0.1		set IP address with gateway
@@ -24,6 +25,7 @@ def argsSetUp():
 	parser = argparse.ArgumentParser(prog='base_maker', description='Set basic parameters for open vSwitch OF feature.', epilog=examples, formatter_class=argparse.RawDescriptionHelpFormatter)
 	
 	parser.add_argument('-c', '--controller', action='store', dest='contrIpAddress', help='Set SDN controller IP address and port (Format: X.X.X.X:Port).')
+	
 	group = parser.add_argument_group('Set static IP address to management interface')
 	group.add_argument('-a', '--address', action='store', dest='ipAdress', help="set static IP address")
 	group.add_argument('-m', '--mask', action='store', dest='mask', help="set network mask")
@@ -31,6 +33,7 @@ def argsSetUp():
 	
 	return parser.parse_args()
 
+#set IP address and mask on enp5s0 interface
 def setIP(ipAddress, maskRaw, gatewayRaw):
 	try:
 		ip = IP(ipAddress)
@@ -60,6 +63,7 @@ def setIP(ipAddress, maskRaw, gatewayRaw):
 		except subprocess.CalledProcessError:
 			print subprocess.CalledProcessError.output
 
+#set gateway on enp5s0 interface
 def setGateway(gatewayRaw):
 	try:
 		gateway = IP(gatewayRaw)
@@ -72,6 +76,7 @@ def setGateway(gatewayRaw):
       	except subprocess.CalledProcessError:
         	print subprocess.CalledProcessError.output
 
+#set controller address and port in OVS
 def setControllerAddress(controllerIP):
 	try:
 		subprocess.call(['ovs-vsctl', 'set-controller', 'of-switch', 'tcp:' + controllerIP])
