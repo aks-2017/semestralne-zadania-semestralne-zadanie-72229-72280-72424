@@ -143,14 +143,71 @@ Posledný skript je upravená verzia skriptu DTD algoritmu pre mininet topológi
 
 Výsledky práce v prvom rade dospeli k tomu, že navrhovaný algoritmus DTD je vhodné použiť na minimalizáciu jitteru a stratovosti paketov. Ďalej je tento algoritmus vhodný na riešenie zahltenia na primárnej linke. Takto je možné dosiahnuť, aby premávka s vysokou prioritou nebola blokovaná premávkou s nižšou prioritou na primárnej linke.
 
-Druhý výsledok práce sa zaoberá porovnaním výsledkov meraní z prostredia Mininet a reálneho prostredia. Dosiahnuté hodnoty v obidvoch prostredí sú porovnateľné. Z čoho je možné predpokladať, že prostredie Mininet je dostatočné na to, aby sa priblížilo dosiahnutými výsledkami k reálnemu prostrediu [1].
+Druhý výsledok práce je porovnanie výsledkov z nášho testovania v prostredí Mininet a testovania autorov. Dosiahnuté výsledky sú porovnateľné s malými rozdielmi [1].
+
+Tretím výsledkom je zhotovenie HW prostredia, do ktorého sme aplikovali algoritmus DTD. Merali sme rovnaké veličiny ako sú Jitter a stratovosť paketov, avšak vzhľadom na naše / autorové merania v prostredí Mininet (pri ktorom sme vychádzali z inej topológie a iných rýchlosti liniek, vzhľadom na HW, ktorým sme disponovali - 2 Switche Soekris net6501 s obmedzenou rýchlosťou liniek na 10Mbit/s), nie je možné tieto meriania až tak priamo porovnávať.
 
 #### Výsledky našich meraní
 Ako bolo spomenuté v kapitole testovanie, prevzali sme scenáre z pôvodného článku.
 K úpravám dochádza len v prípade reálneho prostredia, nakoľko nebolo možné zapojiť toľko zariadení a využiť všade 100Mbit linky. Bolo preto potrebné pristúpiť k zníženiu prenosovej rýchlosti medzi prepínačmi a to na 10Mbit (iné zmenšenie zariadenie Soekris neposkytuje) a teda všetky parametre meraní boli v prípade reálneho zapojenia a testovania 10-násobne zmenšené, aby sa zachoval pomer v súlade z mininet testovaním.
 
-Výsledky sme, podobne ako autori pôvodného článku, zhrnuli do nasledujúcich grafov:
+Testovania vždy pozostávajú z 2 častí a to testovania pre prostredie Mininet a pre HW (ich opis už špeciálne rozoberať nebudeme, pretože vykonávame rovnaké testy ako autori článku - kapitola Analýza článku, Testovanie)
+1. Základný test
+2. Výkonnostný test bez DTD
+3. Výkonnostný test s použitím DTD [1]
 
+Výsledky sme, podobne ako autori pôvodného článku, zhrnuli do grafov nachádzajúcich sa v kapitolách nižšie.
+
+##### Testovanie v prostredí Mininet
+
+###### Základný test
+Čo sa týka stratovosti paketov v našom Mininet meraní, sme dospeli k takmer identickému záveru ako autori článku. Spriemerované hodnoty 10-tich meraní nám vykazujú hodnotu percentuálnej stratovosti paketov len 0,00079%. Je možné, že autorovi stačilo pracovať s menšou presnosťou, pretože on uváda stratovosť paketov o hosnote 0,0%. V tomto prípade sme namerali teda rovnaké výsledky ako autor. Viď graf percentuálnej stratovosti paketov pod odstavcom.
+
+<img align="center" alt="Mininet_S1_loss" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/Mininet_S1_loss.PNG" width="400">
+
+Obr. 9 - Stratovosť paketov v prostredí mininet v základom teste
+
+Hodnoty jitter-u nám tiež o málo vyšli lepšie ako autorovi, pretože priemerná hodnota jitter-u po 10-tich meraniach u nás nadobudla hodnotu 0,0027 ms. V autorovom meraní získali priemernú hodnotu 0,0081. Namerané hodnoty možno vidieť v grafe pod odstavcom.
+
+<img align="center" alt="Mininet_S1_jitter" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/Mininet_S1_jitter.PNG" width="400">
+
+Obr. 10 - Jitter v prostredí mininet v základom teste
+
+###### Výkonnostný test bez DTD
+Výkonnostný test, kedy sme zaťažovali primárnu cestu tokom udp dát o rýchlosti 95 Mbit/s dopadol v našom prípade nasledovne. Priemerná precentuálna hodnota stratvosti paketov činila 40,2728%. Pre porovnanie autor nameral lepšiu hodnotu a to 34%. Ich hodnoty sú teda o niečo ako 6% lepšie. Nami namerané hodnoty možno vidieť pod odstavcom.
+
+<img align="center" alt="Mininet_S2_loss" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/Mininet_S2_loss.PNG" width="400">
+
+Obr. 11 - Stratovosť paketov v prostredí mininet vo výkonnovom teste
+
+Naopak v ich testovaní dosiahli horšie hodnoty jitter-u a ich priemerná hodnota sa zastavila na úrovni 6,2207ms. Nám sa podarila namerať priemerná hodnota iba 4,6393ms čo je o 1,5814ms lepšia hodnota. Namerané hodnoty je taktiež možno vidieť v grafe pod odstavcom.
+
+<img align="center" alt="Mininet_S2_jitter" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/Mininet_S2_jitter.PNG" width="400">
+
+Obr. 12 - Jitter v prostredí mininet vo výkonnovom teste
+
+###### Výkonnostný test s použitím DTD
+Rovnako ako v prvom teste autor uvádza hodnotu percentuálnej stratovosti paketov o hodnote 0,0%. Nám sa však v prostredí Mininet podarilo namerať priemernú precentuálnu hodnotu stratovosti paketov 0,00005%. Táto hodnota je veľmi dobrá, pretože vo všetkých testoch z odoslaných 4279900 paketov sa stratili len 2. Je zaujímavé, že v tomto prípade nám vyšla nižšia stratovosť ako v tom referenčnom (aj keď iba o málo). Namerané hodnoty možno vidieť v grafe pod odstavcom.
+
+<img align="center" alt="Mininet_S3_loss" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/Mininet_S3_loss.PNG" width="400">
+
+Obr. 13 - Stratovosť paketov v prostredí mininet vo výkonnovom teste s použitím DTD
+
+V meraní hodnôt jitter-u sa podarilo autorovi namerať o málo lepšie hodnoty ako nám. Jeho priemerná hodnota činila 0,001 ms a naša 0,0019, čo je o 9 desatisícin horšia hodnota. Každopádne ak sa na všetky testy pozeráme ako na celkom, vyšli nám veľmi rovnaké hodnoty a teda môžme autorové merania len potvrdiť a považovať ich za relevantné. Naše merania jitter z posledného testu je možno vidieť pod odstavcom v grafe.
+
+<img align="center" alt="Mininet_S3_jitter" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/Mininet_S3_jitter.PNG" width="400">
+
+Obr. 14 - Jitter v prostredí mininet vo výkonnovom teste s použitím DTD
+
+##### Testovanie v reálnom prostredí
+
+###### Základný test
+
+###### Výkonnostný test bez DTD
+
+###### Výkonnostný test s použitím DTD
+
+### Zhodnotenie a záver
 
 ### Literatúra
 [1] BARRETT, Robert, et al. Dynamic Traffic Diversion in SDN: testbed vs Mininet. In: Computing, Networking and Communications (ICNC), 2017 International Conference on. IEEE, 2017. p. 167-171 (http://ieeexplore.ieee.org/document/7876121/references).
