@@ -131,6 +131,14 @@ Obr. 8 - Návrh topológie pre reálne prostredie
 Obsahom tejto časti je opis konkrétnej implementácie DTD algoritmu spolu s potrebnými skriptmi pre prípravu jednotlivých prostredí na testovanie.
 
 #### Mininet
+Rovnako ako autori pôvodnej práce, tak aj my sme použili virtuálny stroj Mininet. Topológiu sme zachovali rovnakú. onfiguráciu topológie sme ešte vylepšili o to, že sme definovali pre jednotlivých hostov pevné MAC adresy od 00:00:00:01 do 00:00:00:04, kde koncové číslo označuje čislo hosta. Ďalej sme každej linke určili čísla portov na zariadeniach, ktoré spájajú. Tak sme zabezpečili, že naša aplikácia nad Ryu bude stále sledovať správny port. Šírku liniek sme zachovali na pôvodnej hodnote 100 Mbit/s.
+
+#### Dynamic Traffic Diversion aplikácia
+Nad Ryu sme postavili aplikáciu s názvom scriptu dtd_app.py. V aplikácii sme implemtntovali DTD algoritmus, ktorý bol navrhuntý pôvodnými autormi. Ak primárna trasa bola zahltená na 90% zo svojej kapacity, tak sa pre hosta H1 zmenila trasa do H3 cez založnú cestu a takisto v opačnom smere. Keď vyťaženosť primárnej linky klesla pod 70% svojej kapacity, tak sa trasa pre H1 a H3 vrátila na primárnu cestu a záložná cesta bola zrušená.
+
+Ďalej naša aplikácia nastavuje základnú konfiguráciu prepínačov. Vytvorí a pošle konfiguráciu na daný prepínač pre vytvorenie nového flowu. Taktiež zabezpečuje modifíkáciu existujúcich flowov pri zmene ciest. Ak to zhrnieme, tak naša aplikácia sa postará aj o nastavenie pravidiel na prepínačoch pre flowy. Nie je potrebné  nič manuálne konfigurovať.
+
+Nakoniec sme pridali aj štatistický výpis do terminálu pre port sledovaný na primárnej a záložnej ceste. Uvádzame koľko bajtov bolo na danom porte prenesených a aktuálnu vyťaženosť na porte.
 
 #### Reálne prostredie (Soekris net6501)
 Aby sme mohli pracovať so zariadením pomocou controllera, ktorý komunikuje so zariadeniami prostredníctvom protokolu OpenFlow, je potrebné zariadenie na to pripraviť. Nainštalovanie aplikácie openvswitch-switch spolu s potrebným nastavením rozhraní je realizované pomocou skriptu 'init_setup.bash', ktorý okrem toho vykoná aj nastevnie používanej verzie OpenFlow na verzie 1.0 a 1.3.
