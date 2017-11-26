@@ -200,12 +200,48 @@ V meraní hodnôt jitter-u sa podarilo autorovi namerať o málo lepšie hodnoty
 Obr. 14 - Jitter v prostredí mininet vo výkonnovom teste s použitím DTD
 
 ##### Testovanie v reálnom prostredí
+Ako sme písali v kapitole vyššie, keďže sme nemali rovnaký počet Switchov, museli sme si topológiu zjednodušiť (viď obrázok 8 - Návrh topológie pre reálne prostredie). Okrem iného sme museli medzi switchmi znížiť kapactu liniek na 10 Mbit/s. Problém bol taký, že switch mal iba 4 porty. Prvý zabratý manažmentom, 2 pre vytvorenie redundantného prepojenia medzi switchmi a jedno pre pripojenie aspoň jedného hosta. Aby sme dokázali využiť kapactu oboch liniek medzi switchmi, bolo nutné ich rýchlosť limitovať aspoň na polovicu (teda zo 100Mbit/s na 50Mbit/s a menej), vzhľadom na jedného pripojeného hosta.
+
+A tak toto meranie nie je možné moc porobnávať s tým v Mininete ba ani s tým reálnym, čo nameral autor. Na druhú stranu ako ukážkové zapojenie a otestovanie reálneho prostredia, to však pre nás pridanú hodnotu má.
 
 ###### Základný test
+Ako sme očakávali, pri základnom teste, kedy na pozadí nebeží žiadny iný tok, nám vyšli najlepšie možné hodnoty percentuálnej stratovostti paketov a to 0%. To znamená, že každý jeden paket nám prešiel úspešne zo zdroja do cieľa. Graf aj keď prázdy (kedže sme namerali ideálne hodnoty) sa nachdádza pod odstavcom.
+
+<img align="center" alt="HW_S1_loss" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/HW_S1_loss.PNG" width="400">
+
+Obr. 15 - Stratovosť paketov v reálnom prostredí v základom teste
+
+Čo sa týka hodnôt jitter-u, tie v danom prípade vychádzali v rozpetí od 3,625 ms až po 4,295 ms, čo nám vytvorilo priemenú hodnotu 3,9576 ms. V porovnaní z reálnymi hodnotami, ktoré namerali autori 0,0097 ms, sú tieto hodnoty úplne iné, avšak môžu za to aj rozdielne zariadenia (autor - Cisco Catalyst 3650; my - Soekris net6501) a taktiež aj náležitosti, ktoré som spomínal vyššie. Nami namerané hodnoty je možné vidieť v grafe pod odstavcom.
+
+<img align="center" alt="HW_S1_jitter" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/HW_S1_jitter.PNG" width="400">
+
+Obr. 16 - Jitter v reálnom prostredí v základom teste
 
 ###### Výkonnostný test bez DTD
+Pri výkonostom teste bez DTD nám vyšla veľmi podobná stratovosť paketov ako autorovi a to 55,3%. Autorovi táto priemerná percentuálna stratovosť vyšla 50%. Je vidno, že rozdiel je veľmi malý a číní len 5,3%. V porovnaní rovnakého testu, avšak v prostredí mininetu nie je tento rozdiel taktiež priepastný, ba naopak celkom podobný: 55,3% ku 40,2728% (Rozdiel cca 15%). Namerané hodnoty možno vidieť v obrázku 17.
+
+<img align="center" alt="HW_S2_loss" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/HW_S2_loss.PNG" width="400">
+
+Obr. 17 - Stratovosť paketov v reálnom prostredí vo výkonnovom teste
+
+V teste merania jitter-u sme tiež takmer dosiahli veľmi podobné hodnoty ako autor. Priemerná hodnota jitter-u v reálnom prostredí, ktorú autor nameral činí 7,829 ms a naša je 13,4523 ms. Ostatné hodnoty je možné vidieť pod odstavcom.
+
+<img align="center" alt="HW_S2_jitter" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/HW_S2_jitter.PNG" width="400">
+
+Obr. 18 - Jitter v reálnom prostredí vo výkonnovom teste
 
 ###### Výkonnostný test s použitím DTD
+Čo sa týka stratovosti paketov vo výkonnostnom teste s použitím DTD na reálnych zariadeniach, nám vyšla hodnota stratovosti paketov 0,0%. Tento reálny prípad nám vyšiel rovnako ako autorovi práce a okrem iného dokonca lepšie ako v emulátore Mininet (tam dosahoval zanedbateľné hodny - 0,00005%). Graf, ktorý potvrdzuje ideálny stav sa nachádza pod odstavcom.
+
+<img align="center" alt="HW_S3_loss" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/HW_S3_loss.PNG" width="400">
+
+Obr. 19 - Stratovosť paketov v reálnom prostredí vo výkonnovom teste s použitím DTD
+
+Meranie jitter-u aj keď nám vrátilo priemernú hodnotu 3,9196 ms, čo sa celkom s autorom nezhoduje (on nameral 0,0097 ms) nám toho veľa vypovedá. Rozdiely medzi našimi testami (scenár 1 a 3) nám vrátili takmer rovnakú hodnotu s rozdielom len 0,038 ms. Podobný rozdiel sa vyskytol aj medzi autorovými meraniami. Všetky čiastkové merania je možné vidieť v grafe nachádzajúcom sa pod odstavcom.
+
+<img align="center" alt="HW_S3_jitter" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/HW_S3_jitter.PNG" width="400">
+
+Obr. 20 - Jitter v reálnom prostredí vo výkonnovom teste s použitím DTD
 
 ### Zhodnotenie a záver
 
