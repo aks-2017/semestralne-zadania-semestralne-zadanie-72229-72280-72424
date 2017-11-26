@@ -252,6 +252,11 @@ Meranie jitter-u aj keď nám vrátilo priemernú hodnotu 3,9196 ms, čo sa celk
 Obr. 20 - Jitter v reálnom prostredí vo výkonnovom teste s použitím DTD
 
 ### Zhodnotenie a záver
+V práci sa nám potvrdilo to, čo sme aj predpokladali a čo predpokladal aj autor článku. DTD algoritmus pri nežiadúcej premávke (zahltená primárna cesta) dynamicky vytvára záložnú, čo znižuje stratovosť paketov a taktiež aj jitter. Táto hypotéza sa nám aj prakticky potvrdila pri našich zreplikovaných testovaniach, ktoré vzhľadom na HW ktorým sme disponovali, sme s časti museli upraviť.
+
+Aj napriek úpravám, ktoré sme zaviedli sa výsledky do výraznej miery zhodovali s tými, čo nameral autor článku. Okrem iného sa s časti zhodovali aj merania v rámci rovnakých scenárov v prostredí reálnom a Mininetu. To že merania častokrát dosahovali lepšie hodnoty v emulátore Miniet, je spôsobené aj tým, že Mininet patrí medzi emulátori typu "All in one" (všetko na jednom mieste - žiadne prepojovacie káble a iné HW oneskorenia).
+
+Vďaka projektu sme sa naučili pracovať s emulátorom Mininet, HW - Soekris net6501, s SDN kontrolérom RYU a v neposledom rade si rozšírili naše programátorské znalosti, tímovú prácu s Git-om ale aj veľa ďalšieho. Osobne považujeme projekt ako veľmi prínosný a radi by sme v ňom pokračovali. Predsa len bolo by dobré pomocou reálneho prostredia vytvoriť topológiu totožnú s emulovanou, skúsiť nastaviť odozvy emulovaných liniek na rovnakú hodnotu s tými reálnymi a tak preukázať, že mininet je veľmi mocný nástroj, pomocou ktorého je veľmi dôverihodne možno emulovať a testovať SDN siete.
 
 ### Literatúra
 [1] BARRETT, Robert, et al. Dynamic Traffic Diversion in SDN: testbed vs Mininet. In: Computing, Networking and Communications (ICNC), 2017 International Conference on. IEEE, 2017. p. 167-171 (http://ieeexplore.ieee.org/document/7876121/references).
