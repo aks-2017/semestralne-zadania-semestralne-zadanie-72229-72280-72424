@@ -5,7 +5,12 @@
 **Autori:** Lukáš Mastiľak, Ján Pánis, Andrej Vaculčiak
 
 ### Abstrakt
-**Pridať info, čo všetko sa v článku nachádza a čomu sa venuje**
+Základom vývoja v ktorejkoľvek oblasti je testovanie. V drvivej väčšine prípadov potrebujeme testovať počas celého procesu vývoja, avšak nie vždy máme k dispozícií koncové zariadenia, resp. hardvér, na ktorý je daná aplikácia vyvíjaná. Preto vznikli rôzne emulátory, ktoré viac, či menej dôveryhodne emulujú reálne prostredie a tým uľahčujú proces vývoja a testovania riešenia.
+
+Obsahom nasledujúceho článku je analýza pôvodného článku [1], ktorý sa zaoberá overením relevantnosti výslekov poskytujúcich emulátorom SDN sietí s názvom Mininet voči výsledkom získaným reálnym zapojením SDN siete.
+V úvodnej časti predstavuje problematiku samotných SDN sietí a prečo je dobré sa nimi zaoberať. Okrem toho opisuje pôvodné riešenie podľa článku [1], spôsob testovania a vyhodnotenie testov, ktoré realizovali.
+
+Na ich základe sme následne navrhli a tak isto testovali prostredie Mininet a modifikovanú reálnu fyzickú topológiu založenú na zariadeniach Soekris net6501. Výsledky testov sme podľa možností porovnali s riešením v pôvodnom článku [1].
 
 ### Analýza článku
 Táto časť dokumentu sa venuje opisu pôvodného riešenia podľa referenčného článku, spolu s výsledkami testovania.
@@ -215,48 +220,42 @@ Potrebovali sme totižto zabezpečiť, aby nedošlo k zahlteniu linky inde, ako 
 Z tohto dôvodu nie je možné porovnávať meranie na fyzickej topológií s tým v Mininete, ba ani s tým reálnym, ktoré namerali autori pôvodného článku. Na druhú stranu ako ukážkové zapojenie a otestovanie reálneho prostredia, to však pre nás pridanú hodnotu má.
 
 ###### Základný test
-Ako sme očakávali, pri základnom teste, kedy na pozadí nebeží žiadny iný tok, nám vyšli najlepšie možné hodnoty percentuálnej stratovostti paketov a to 0%. To znamená, že každý jeden paket nám prešiel úspešne zo zdroja do cieľa. Graf aj keď prázdy (kedže sme namerali ideálne hodnoty) sa nachdádza pod odstavcom.
-
-<img align="center" alt="HW_S1_loss" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/HW_S1_loss.PNG" width="400">
-
-Obr. 15 - Stratovosť paketov v reálnom prostredí v základom teste
+Ako sme očakávali, pri základnom teste, kedy na pozadí nebeží žiadny iný tok, nám vyšli najlepšie možné hodnoty percentuálnej stratovostti paketov a to 0%. To znamená, že každý jeden paket nám prešiel úspešne zo zdroja do cieľa.
 
 Čo sa týka hodnôt jitter-u, tie v danom prípade vychádzali v rozpetí od 3,625 ms až po 4,295 ms, čo nám vytvorilo priemenú hodnotu 3,9576 ms. V porovnaní z reálnymi hodnotami, ktoré namerali autori 0,0097 ms, sú tieto hodnoty úplne iné, avšak môžu za to aj rozdielne zariadenia (autor - Cisco Catalyst 3650; my - Soekris net6501) a taktiež aj náležitosti, ktoré som spomínal vyššie. Nami namerané hodnoty je možné vidieť v grafe pod odstavcom.
 
 <img align="center" alt="HW_S1_jitter" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/HW_S1_jitter.PNG" width="400">
 
-Obr. 16 - Jitter v reálnom prostredí v základom teste
+Obr. 15 - Jitter v reálnom prostredí v základom teste
 
 ###### Výkonnostný test bez DTD
-Pri výkonostom teste bez DTD nám vyšla veľmi podobná stratovosť paketov ako autorovi a to 55,3%. Autorovi táto priemerná percentuálna stratovosť vyšla 50%. Je vidno, že rozdiel je veľmi malý a číní len 5,3%. V porovnaní rovnakého testu, avšak v prostredí mininetu nie je tento rozdiel taktiež priepastný, ba naopak celkom podobný: 55,3% ku 40,2728% (Rozdiel cca 15%). Namerané hodnoty možno vidieť v obrázku 17.
+Pri výkonostom teste bez DTD nám vyšla veľmi podobná stratovosť paketov ako autorovi a to 55,3%. Autorovi táto priemerná percentuálna stratovosť vyšla 50%. Je vidno, že rozdiel je veľmi malý a číní len 5,3%. V porovnaní rovnakého testu, avšak v prostredí mininetu nie je tento rozdiel taktiež priepastný, ba naopak celkom podobný: 55,3% ku 40,2728% (Rozdiel cca 15%). Namerané hodnoty možno vidieť v obrázku 16.
 
 <img align="center" alt="HW_S2_loss" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/HW_S2_loss.PNG" width="400">
 
-Obr. 17 - Stratovosť paketov v reálnom prostredí vo výkonnovom teste
+Obr. 16 - Stratovosť paketov v reálnom prostredí vo výkonnovom teste
 
 V teste merania jitter-u sme tiež takmer dosiahli veľmi podobné hodnoty ako autor. Priemerná hodnota jitter-u v reálnom prostredí, ktorú autor nameral činí 7,829 ms a naša je 13,4523 ms. Ostatné hodnoty je možné vidieť pod odstavcom.
 
 <img align="center" alt="HW_S2_jitter" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/HW_S2_jitter.PNG" width="400">
 
-Obr. 18 - Jitter v reálnom prostredí vo výkonnovom teste
+Obr. 17 - Jitter v reálnom prostredí vo výkonnovom teste
 
 ###### Výkonnostný test s použitím DTD
-Čo sa týka stratovosti paketov vo výkonnostnom teste s použitím DTD na reálnych zariadeniach, nám vyšla hodnota stratovosti paketov 0,0%. Tento reálny prípad nám vyšiel rovnako ako autorovi práce a okrem iného dokonca lepšie ako v emulátore Mininet (tam dosahoval zanedbateľné hodny - 0,00005%). Graf, ktorý potvrdzuje ideálny stav sa nachádza pod odstavcom.
-
-<img align="center" alt="HW_S3_loss" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/HW_S3_loss.PNG" width="400">
-
-Obr. 19 - Stratovosť paketov v reálnom prostredí vo výkonnovom teste s použitím DTD
+Čo sa týka stratovosti paketov vo výkonnostnom teste s použitím DTD na reálnych zariadeniach, nám vyšla hodnota stratovosti paketov 0,0%. Tento reálny prípad nám vyšiel rovnako ako autorovi práce a okrem iného dokonca lepšie ako v emulátore Mininet (tam dosahoval zanedbateľné hodny - 0,00005%).
 
 Meranie jitter-u aj keď nám vrátilo priemernú hodnotu 3,9196 ms, čo sa celkom s autorom nezhoduje (on nameral 0,0097 ms) nám toho veľa vypovedá. Rozdiely medzi našimi testami (scenár 1 a 3) nám vrátili takmer rovnakú hodnotu s rozdielom len 0,038 ms. Podobný rozdiel sa vyskytol aj medzi autorovými meraniami. Všetky čiastkové merania je možné vidieť v grafe nachádzajúcom sa pod odstavcom.
 
 <img align="center" alt="HW_S3_jitter" src="https://github.com/aks-2017/semestralne-zadania-semestralne-zadanie-xmastilak-xpanis-xvaculciak/blob/navrh_Janci/docs/pictures/HW_S3_jitter.PNG" width="400">
 
-Obr. 20 - Jitter v reálnom prostredí vo výkonnovom teste s použitím DTD
+Obr. 18 - Jitter v reálnom prostredí vo výkonnovom teste s použitím DTD
 
 ### Zhodnotenie a záver
-**Pridať zhrnutie, čo sme všetko spravili**
+Hlavnou časťou našej práce bolo analyzovať postupy a výsledky dosiahnuté autormi pôvodného článku. Na základe tejto analýzy sme vypracovali návrh nášho riešenia daného problému na základe už existujúceho riešenia, ktoré sme ale v prípade hardvérovej časti upravili podľa toho, koľko a akých zariadení sme mali k dispozícií. Vytvorili sme si vlastné skripty, či už na vytvorenie samotnej mininet topológie alebo na vykonávanie DTD algoritmu.
 
-V práci sa nám potvrdilo to, čo sme aj predpokladali a čo predpokladal aj autor článku. DTD algoritmus pri nežiadúcej premávke (zahltená primárna cesta) dynamicky vytvára záložnú cestu, čo znižuje stratovosť paketov a taktiež aj jitter. Táto hypotéza sa nám aj prakticky potvrdila pri našich zreplikovaných testovaniach, ktoré  sme vzhľadom na HW ktorým sme disponovali museli sčasti upraviť.
+Následne sme vykonali rovnakú sériu testov a výsledky porovnali, najmä s výsledkami z referenčného článku, nakoľko porovnanie hardvérovej a emulovanej topológie by nebolo vhodné. Došlo totižto k podstatnej úprave reaálnej topológie, a teda cieľom hardvérovej časti bolo vyskúšať si, ako funguje SDN na reálnom zariadení a či vôbec to bude fungovať.
+
+V práci sa nám potvrdilo to, čo sme aj predpokladali a čo predpokladali aj autori článku. DTD algoritmus pri nežiadúcej premávke (zahltená primárna cesta) dynamicky vytvára záložnú cestu, čo znižuje stratovosť paketov a taktiež aj jitter. Táto hypotéza sa nám aj prakticky potvrdila pri našich zreplikovaných testovaniach, ktoré  sme vzhľadom na HW ktorým sme disponovali museli sčasti upraviť.
 
 Aj napriek úpravám, ktoré sme zaviedli sa výsledky do výraznej miery zhodovali s tými, ktoré namerali autori článku. Okrem iného sa s časti zhodovali aj merania v rámci rovnakých scenárov v prostredí reálnom a Mininet. To že merania častokrát dosahovali lepšie hodnoty v emulátore Miniet, je spôsobené aj tým, že Mininet patrí medzi emulátori typu "All in one" (všetko na jednom mieste - žiadne prepojovacie káble a iné HW oneskorenia).
 
